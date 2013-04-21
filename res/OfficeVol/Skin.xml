@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<Window size="160,160" bktrans="true">
+    <Font name="Tahoma" size="19" bold="false" italic="false" />
+    <VerticalLayout width="160" height="160" bkimage="file=&apos;back.png&apos; dest=&apos;0,0,160,160&apos; source=&apos;0,0,160,160&apos; mask=&apos;0xfffffbf0&apos; fade=&apos;133&apos;">
+        <Label name="logolabel" float="true" pos="54,27,0,0" width="48" height="48" bkimage="file=&apos;sound_high.png&apos; dest=&apos;0,0,64,64&apos; source=&apos;0,0,48,48&apos;" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" />
+        <Text name="coltext" text="Master Vol" float="true" pos="24,87,0,0" width="112" height="29" textpadding="2,0,2,0" textcolor="#00FFFFFF" disabledtextcolor="#FFA7A6AA" font="0" align="centerwrap" />
+        <Progress name="progressbar" float="true" pos="11,127,0,0" width="136" height="7" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" foreimage="progressfore.png" min="0" max="100" value="57" hor="true" />
+    </VerticalLayout>
+</Window>

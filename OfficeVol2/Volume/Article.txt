@@ -1,0 +1,99 @@
+Many times my applications required audio volume manipulation.
+To make the volume-enabled application development easier I decided to
+create a few C++ classes that would allow me to easily regulate and track
+the changes of such volume controls as Output Master Volume, WaveOut Volume and
+Input (WaveIn) Volume.
+Here I provide such classes that share a common interface (defined in IVolume.h):
+
+bool	IsAvailable() - Says whether the volume controling is possible
+void	Enable() - Enables the line of the volume control
+void	Disable() - Disables the line of the volume control
+DWORD	GetVolumeMetric() - Retrieves the granularity of volume
+DWORD	GetMinimalVolume() - Retrieves the minimal volume that can be set
+DWORD	GetMaximalVolume() - Retrieves the maximal volume that can be set
+DWORD	GetCurrentVolume() - Retrieve the current volume
+void	SetCurrentVolume( DWORD dwValue ) - Set the volume
+
+And the last function allows to register a user-implemented callback that
+will be called as a notification of volume changes:
+void	RegisterNotificationSink( PONMICVOULUMECHANGE, DWORD )
+
+This interface is implemented by CVolumeOutMaster (VolumeOutMaster.h/cpp),
+CVolumeOutWave (VolumeOutWave.h/cpp) and CVolumeInXXX (VolumeInXXX.h/cpp) classes.
+The usage of the classes is very simple:
+In your StdAfx.h include "mmSystem.h" and make sure you link to the "winmm.lib"
+( #pragma comment(lib, "winmm.lib") ).
+Then, if you are going to use Output Mater volume control, include "VolumeOutMaster.h",
+say, to the StdAfx.h
+The IVolume.h, VolumeInXXX.h, VolumeInXXX.cpp are to be inserted as your project files.
+...
+void CALLBACK MasterVolumeChanged( DWORD dwCurrentVolume, DWORD dwUserValue );
+...
+// Volume control Initialization
+IVolume* pMasterVolume = (IVolume*)new CVolumeOutMaster();
+if ( !pMasterVolume || !pMasterVolume->IsAvailable() )
+{
+ 	// handle error
+}
+pMasterVolume->Enable();
+pMasterVolume->RegisterNotificationSink( MasterVolumeChanged, dwAnyUserValue );
+...
+pMasterVolume->SetCurrentVolume( dwVolumeToSet );
+...
+DWORD dwCurrentVolume = pMasterVolume->SetCurrentVolume();
+...
+void CALLBACK MasterVolumeChanged( DWORD dwCurrentVolume, DWORD dwUserValue )
+{
+	// handle the volume change
+}
+...
+
+Very simple, isn't it?
+Yet, the CVolumeInXXX class requires more explanation. In order to manipulate
+the Input volume, the source line index is to be passed to the constructor.
+Confused? Please, be not. CVolumeInXXX class provides a static function to
+enumerate those lines:
+
+bool	EnumerateInputLines( PINPUTLINEPROC, DWORD dwUserValue );
+
+This allows you to manipulate the volume of any WaveIn-based lines.
+Say, you want to manipulate the microphone volume:
+...
+bool CALLBACK EnumInputLineProc( UINT uLineIndex, MIXERLINE* pLineInfo, DWORD dwUserValue );
+...
+// Initialization
+UINT uMicrophoneLineIndex = (UINT)-1;
+if ( !CVolumeInXXX::EnumerateInputLines( EnumInputLineProc, (DWORD)&uMicrophoneLineIndex ) )
+{
+	// handle error
+}
+if ( uMicrophoneLineIndex == (UINT)-1 )
+{
+	// Error: mic volume'ing is not available.
+}
+IVolume* pMicrophoneVolume = (IVolume*)new CVolumeInXXX( uMicrophoneLineIndex );
+if ( !pMicrophoneVolume || !pMicrophoneVolume->IsAvailable() )
+{
+ 	// handle error
+}
+// Go on and use pMicrophoneVolume to manipulate the volume
+...
+bool CALLBACK EnumInputLineProc( UINT uLineIndex, MIXERLINE* pLineInfo, DWORD dwUserValue )
+{
+	if ( pLineInfo->dwComponentType == MIXERLINE_COMPONENTTYPE_SRC_MICROPHONE )
+	{
+		*((UINT*)dwUserValue) = uLineIndex;
+		return false;
+	}
+	return true;
+}
+...
+
+Be aware, that for performance reasons it is better to have a single instance
+of a given class per application. So don't rush to create lots of CVolumeInXXX
+objects, better share the only one through your code.
+
+Conclusion:
+The proposed classes do not encapsulate all the abilities exposed by the mixers.
+However, working with a mixer just to add a pretty simple functionality is quite boring.
+That's why, as I think, the proposed classes might be of some help to you.
