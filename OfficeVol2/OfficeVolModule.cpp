@@ -16,11 +16,14 @@ OfficeVolModule::~OfficeVolModule(void)
 		delete mVol;
 }
 
-int OfficeVolModule::Init(OfficeVolDelegate* delegate)
+int OfficeVolModule::Init(OfficeVolDelegate* delegate, const std::string& cfg_filename)
 {
 	if(!delegate)
 		return OFF_ERROR_PARAMTER;
 
+	if(!cfg_filename.empty())
+		mCfgFileName = cfg_filename;
+	
 	SetDelegate(delegate);
 	mVol = new CVolumeOutMaster;
 	mNowVolClass = MASTER_VOL;
@@ -179,6 +182,7 @@ int OfficeVolModule::UpdateStatus(const std::string& key_down)
 	mDelegate->UiUpdate(iter->second);
 	return 0;
 }
+
 
 int OfficeVolModule::SetConfigStr(OFF_CONFIG_CLASS config_class, 
 									 const std::string& name_str,

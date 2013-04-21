@@ -45,9 +45,8 @@ void VolMainForm::OnFinalMessage(HWND /*hWnd*/)
 void VolMainForm::Init() 
 {
 	::SetWindowPos(m_hWnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
-	//::SetWindowPos(m_hWnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_HIDEWINDOW);
 
-	if(OfficeVolModule::GetInstance()->Init(this))
+	if(OfficeVolModule::GetInstance()->Init(this, ""))
 	{
 		Off_Msg("Module Init Error!");
 		::PostQuitMessage(0L);
@@ -508,7 +507,7 @@ LRESULT VolMainForm::ShowPad()
 		m_pm.GetRoot()->NeedUpdate();
 		
 		::ShowWindow(m_hWnd, SW_SHOW);
-		::SetWindowPos(m_hWnd, HWND_TOP, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE |SWP_NOACTIVATE);
+		::SetWindowPos(m_hWnd, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE |SWP_NOACTIVATE);
 		SetTimer(m_hWnd, 0, 1000, NULL);
 		mIsShow = TRUE;
 	}
@@ -650,12 +649,16 @@ int VolMainForm::ReConfig(OFF_CONFIG_CLASS config_class,
 	{
 		if(value == "ON")
 		{
-			TCHAR modlepath[256];
-			TCHAR syspath[256];
+			TCHAR modlepath[1024];
+			TCHAR syspath[1024];
 			HRESULT hr;
 			GetModuleFileName(0, modlepath, 256);//取得程序名字
 			SHGetSpecialFolderPath(NULL, syspath, CSIDL_COMMON_STARTUP, TRUE);
 			strcat(syspath, "\\LazyVol.lnk");
+
+			TCHAR szBuf[1024];
+			ZeroMemory(szBuf, 1024);
+			GetCurrentDirectory(1024, szBuf);
 
 			IShellLink *pisl;
 
@@ -667,6 +670,7 @@ int VolMainForm::ReConfig(OFF_CONFIG_CLASS config_class,
 
 				//这里是我们要创建快捷方式的原始文件地址
 				pisl->SetPath(modlepath);
+				pisl->SetArguments(szBuf);
 				hr = pisl->QueryInterface(IID_IPersistFile, (void**)&pIPF);
 				if (SUCCEEDED(hr))
 				{   

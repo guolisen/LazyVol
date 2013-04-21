@@ -69,7 +69,7 @@ public:
 		return m_pInstance;
 	}
 
-	virtual int  Init(OfficeVolDelegate* delegate);
+	virtual int  Init(OfficeVolDelegate* delegate, const std::string& cfg_filename);
 	virtual void VolUp();
 	virtual void VolDown();
 	virtual void UnInit();
@@ -98,6 +98,15 @@ public:
 		mDelegate = delegate_para;
 		return OFF_OK;
 	};
+
+	virtual int SetCfgFileName(const std::string& filename_str)
+	{	
+		if(filename_str.empty())
+			return OFF_ERROR;
+		
+		mCfgFileName = filename_str;
+		return OFF_OK;
+	}
 
 	virtual int SetConfigStr(OFF_CONFIG_CLASS config_class, 
 								const std::string& name_str,
