@@ -3,6 +3,7 @@
     <Font name="Lucida Sans Unicode" size="14" bold="true" italic="false" />
     <Font name="Trebuchet MS" size="13" bold="false" italic="false" />
     <Font name="Lithos Pro Regular" size="15" bold="false" italic="false" />
+    <Font name="Trebuchet MS" size="15" bold="false" italic="false" />
     <VerticalLayout width="510" height="360" bkimage="op_back.png">
         <HorizontalLayout width="516" height="30">
             <Label text="LazyVol 1.00" float="true" pos="16,5,0,0" width="113" height="21" textcolor="#00E1E1E1" disabledtextcolor="#FFA7A6AA" font="2" />
@@ -21,6 +22,11 @@
                 </VerticalLayout>
                 <HorizontalLayout width="405" height="238">
                     <TabLayout name="tab_main_general" width="509" height="240" relativepos="0,0,0,0">
+                        <VerticalLayout width="403" height="233">
+                            <Control float="true" pos="9,18,0,0" width="370" height="198" bkimage="file=&apos;BackRect.png&apos; dest=&apos;0,0,365,197&apos;" />
+                            <Option name="OFF_WINSTART" float="true" pos="38,39,0,0" width="16" height="16" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" normalimage="file=&apos;checkbutton1.png&apos; source=&apos;0,0,16,16&apos;" hotimage="file=&apos;checkbutton1.png&apos; source=&apos;16,0,32,16&apos;" selectedimage="file=&apos;checkbutton1.png&apos; source=&apos;32,0,48,16&apos;" />
+                            <Label text="Start with Windows" float="true" pos="69,35,0,0" width="151" height="22" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" font="3" />
+                        </VerticalLayout>
                         <VerticalLayout width="407" height="233">
                             <KEdit bkcolor="#FFFFFFFF" disabledtextcolor="#FFA7A6AA" float="true" focusedimage="file=&apos;D:\code\dui2\res\skin\ControlFactoryLightRes\edit-hover.png&apos; corner=&apos;0,0,5,5&apos;" font="1" height="32" hotimage="file=&apos;D:\code\dui2\res\skin\ControlFactoryLightRes\edit-hover.png&apos; corner=&apos;0,0,5,5&apos;" name="OFF_VOLON" normalimage="file=&apos;D:\code\dui2\res\skin\ControlFactoryLightRes\edit-normal.png&apos; corner=&apos;0,0,5,5&apos;" pos="95,23,0,0" readonly="true" text="Ctrl+Alt+O" textcolor="#FF000000" textpadding="4,3,4,3" width="97" />
                             <Label text="Volnme On:" float="true" pos="18,27,0,0" width="69" height="21" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" font="1" align="right" />
@@ -40,9 +46,6 @@
                             <KEdit bkcolor="#FFFFFFFF" disabledtextcolor="#FFA7A6AA" float="true" focusedimage="file=&apos;D:\code\dui2\res\skin\ControlFactoryLightRes\edit-hover.png&apos; corner=&apos;0,0,5,5&apos;" font="1" height="32" hotimage="file=&apos;D:\code\dui2\res\skin\ControlFactoryLightRes\edit-hover.png&apos; corner=&apos;0,0,5,5&apos;" name="OFF_OPTION" normalimage="file=&apos;D:\code\dui2\res\skin\ControlFactoryLightRes\edit-normal.png&apos; corner=&apos;0,0,5,5&apos;" pos="275,143,0,0" readonly="true" text="Ctrl+Alt+O" textcolor="#FF000000" textpadding="4,3,4,3" width="97" />
                             <Label text="Quit:" float="true" pos="27,187,0,0" width="60" height="20" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" font="1" align="right" />
                             <KEdit bkcolor="#FFFFFFFF" disabledtextcolor="#FFA7A6AA" float="true" focusedimage="file=&apos;D:\code\dui2\res\skin\ControlFactoryLightRes\edit-hover.png&apos; corner=&apos;0,0,5,5&apos;" font="1" height="32" hotimage="file=&apos;D:\code\dui2\res\skin\ControlFactoryLightRes\edit-hover.png&apos; corner=&apos;0,0,5,5&apos;" name="OFF_QUIT" normalimage="file=&apos;D:\code\dui2\res\skin\ControlFactoryLightRes\edit-normal.png&apos; corner=&apos;0,0,5,5&apos;" pos="95,182,0,0" readonly="true" text="Ctrl+Alt+O" textcolor="#FF000000" textpadding="4,3,4,3" width="97" />
-                        </VerticalLayout>
-                        <VerticalLayout width="403" height="233">
-                            <Option float="true" pos="23,30,0,0" width="16" height="16" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" normalimage="file=&apos;checkbutton1.png&apos; source=&apos;0,0,16,16&apos;" hotimage="file=&apos;checkbutton1.png&apos; source=&apos;16,0,32,16&apos;" selectedimage="file=&apos;checkbutton1.png&apos; source=&apos;32,0,48,16&apos;" />
                         </VerticalLayout>
                     </TabLayout>
                 </HorizontalLayout>

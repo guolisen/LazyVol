@@ -52,6 +52,7 @@ public:
 private:
 	HWND mParentHwnd;
 	std::vector<CKeyEditUI*> mKeyEditVec;
+	COptionUI* mWinStartOpt;
 };
 
 #endif

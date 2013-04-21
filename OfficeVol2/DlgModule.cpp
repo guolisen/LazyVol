@@ -47,7 +47,12 @@ void VolMainForm::Init()
 	::SetWindowPos(m_hWnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
 	//::SetWindowPos(m_hWnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_HIDEWINDOW);
 
-	OfficeVolModule::GetInstance()->Init(this);	
+	if(OfficeVolModule::GetInstance()->Init(this))
+	{
+		Off_Msg("Module Init Error!");
+		::PostQuitMessage(0L);
+		return;
+	}
 	
     mProgress = static_cast<CProgressUI*>(m_pm.FindControl(_T("progressbar")));
     mVolLogo  = static_cast<CLabelUI*>(m_pm.FindControl(_T("logolabel")));
@@ -622,6 +627,9 @@ int VolMainForm::ReConfig(OFF_CONFIG_CLASS config_class,
 		                const std::string& value, 
 		                const std::string& old_value)
 {
+	if(value == old_value)
+		return OFF_OK;
+	
 	if(OFF_KEY_UPDATE == config_class)
 	{
 		if(value.empty())
@@ -636,6 +644,53 @@ int VolMainForm::ReConfig(OFF_CONFIG_CLASS config_class,
 			_snprintf(outStr, 1024, "热键(%s)重复", value.c_str());
 			::MessageBox(m_hWnd, "热键重复", outStr, MB_OK);
 			return OFF_ERROR;
+		}
+	}
+	else if(OFF_WIN_START == config_class)
+	{
+		if(value == "ON")
+		{
+			TCHAR modlepath[256];
+			TCHAR syspath[256];
+			HRESULT hr;
+			GetModuleFileName(0, modlepath, 256);//取得程序名字
+			SHGetSpecialFolderPath(NULL, syspath, CSIDL_COMMON_STARTUP, TRUE);
+			strcat(syspath, "\\LazyVol.lnk");
+
+			IShellLink *pisl;
+
+			hr = CoCreateInstance(CLSID_ShellLink, NULL, CLSCTX_INPROC_SERVER, IID_IShellLink, (void**)&pisl);
+			if (SUCCEEDED(hr))
+			{
+				IPersistFile* pIPF;
+				/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+				//这里是我们要创建快捷方式的原始文件地址
+				pisl->SetPath(modlepath);
+				hr = pisl->QueryInterface(IID_IPersistFile, (void**)&pIPF);
+				if (SUCCEEDED(hr))
+				{   
+
+					//这里是我们要创建快捷方式的目标地址
+					WCHAR pWidePath[256];
+					ZeroMemory(pWidePath, 256);
+					MultiByteToWideChar(CP_ACP,0, syspath, 256, pWidePath, 256);
+					pIPF->Save(pWidePath, FALSE);
+					pIPF->Release();
+				}
+				pisl->Release();
+			}
+
+		}
+		else
+		{
+			TCHAR modlepath[256];
+			TCHAR syspath[256];
+			GetModuleFileName(0, modlepath, 256);//取得程序名字
+			SHGetSpecialFolderPath(NULL, syspath, CSIDL_COMMON_STARTUP,TRUE);
+			strcat(syspath,"\\LazyVol.lnk");
+			
+			::DeleteFile(syspath);
 		}
 	}
 	

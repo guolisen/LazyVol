@@ -46,8 +46,6 @@ int OfficeVolModule::Init(OfficeVolDelegate* delegate)
 		return OFF_ERROR_CONFIG_FILE;
 	}
 
-
-	
 	try
 	{
 		std::string tmp = mCfg.lookup("OFF_VOLUP");
@@ -86,10 +84,14 @@ int OfficeVolModule::Init(OfficeVolDelegate* delegate)
 		tmp = static_cast<std::string>(mCfg.lookup("OFF_QUIT"));
 		mDelegate->ReConfig(OFF_KEY_UPDATE, tmp, "");
 		mActionMap.insert(make_pair(tmp, "OFF_QUIT"));		
-		
+
+		tmp = static_cast<std::string>(mCfg.lookup("OFF_WINSTART"));
+		//mDelegate->ReConfig(OFF_WIN_START, tmp, "");
+		mActionMap.insert(make_pair(tmp, "OFF_WINSTART"));		
 	}
 	catch(const SettingNotFoundException &nfex)
 	{
+		Off_DegMsg(nfex.what());
 		return OFF_ERROR;
 	}
 
@@ -194,6 +196,9 @@ int OfficeVolModule::SetConfigStr(OFF_CONFIG_CLASS config_class,
 		Off_DegMsg("GetConfigStr Error!");
 		return OFF_ERROR;
 	}
+
+	if(tmpOldVal == value_str)
+		return OFF_OK;
 	
 	int ret = mDelegate->ReConfig(config_class, value_str, tmpOldVal);
 	if(ret)
@@ -235,6 +240,8 @@ int OfficeVolModule::GetConfigStr(const std::string& name_str, std::string& valu
 	catch(const SettingNotFoundException &nfex)
 	{
 		std::cerr << "No '"<< name_str <<"' setting in configuration file." << std::endl;
+		Off_DegMsg("Can not Find the Config Name!\n");
+
 		return OFF_ERROR;
 	}	
 	
@@ -511,196 +518,196 @@ int ModifierKeyParser::StrToKeyVal(const std::string& key_str)
 	if(key_str == "ALT")
 		return VK_MENU;
 
-	if(key_str == "CTRL")
+	else if(key_str == "CTRL")
 		return VK_CONTROL;
 
-	if(key_str == "SHIFT")	
+	else if(key_str == "SHIFT")	
 		return VK_SHIFT;
 
-	if(key_str == "ESC")
+	else if(key_str == "ESC")
 		return VK_ESCAPE;  
 
-	if(key_str == "SPACE")
+	else if(key_str == "SPACE")
 		return VK_SPACE;
 
-	if(key_str == "PRIOR")
+	else if(key_str == "PRIOR")
 		return VK_PRIOR;
 	
-	if(key_str == "NEXT")
+	else if(key_str == "NEXT")
 		return VK_NEXT;   
 
-	if(key_str == "END")
+	else if(key_str == "END")
 		return VK_END; 
 
-	if(key_str == "HOME")
+	else if(key_str == "HOME")
 		return VK_HOME; 
 
-	if(key_str == "¡û")
+	else if(key_str == "¡û")
 		return VK_LEFT; 
 
-	if(key_str == "¡ü")
+	else if(key_str == "¡ü")
 		return VK_UP;  
 
-	if(key_str == "¡ú")
+	else if(key_str == "¡ú")
 		return VK_RIGHT;
 
-	if(key_str == "¡ý")
+	else if(key_str == "¡ý")
 		return VK_DOWN;
 
-	if(key_str == "SELECT")
+	else if(key_str == "SELECT")
 		return VK_SELECT;
 
-	if(key_str == "PRINT")
+	else if(key_str == "PRINT")
 		return VK_PRINT; 
 
-	if(key_str == "EXECUTE")
+	else if(key_str == "EXECUTE")
 		return VK_EXECUTE; 
 
-	if(key_str == "SNAPSHOT")
+	else if(key_str == "SNAPSHOT")
 		return VK_SNAPSHOT;
 
-	if(key_str == "INS")
+	else if(key_str == "INS")
 		return VK_INSERT; 
 
-	if(key_str == "DEL")
+	else if(key_str == "DEL")
 		return VK_DELETE;
 
-	if(key_str == "HELP")
+	else if(key_str == "HELP")
 		return VK_HELP;  
 
-	if(key_str == "LWIN")
+	else if(key_str == "LWIN")
 		return VK_LWIN;  
 
-	if(key_str == "RWIN")
+	else if(key_str == "RWIN")
 		return VK_RWIN; 
 
-	if(key_str == "APPS")
+	else if(key_str == "APPS")
 		return VK_APPS;  
 
-	if(key_str == "NUM0")
+	else if(key_str == "NUM0")
 		return VK_NUMPAD0;
 
-	if(key_str == "NUM1")
+	else if(key_str == "NUM1")
 		return VK_NUMPAD1; 
 
-	if(key_str == "NUM2")
+	else if(key_str == "NUM2")
 		return VK_NUMPAD2;
 
-	if(key_str == "NUM3")
+	else if(key_str == "NUM3")
 		return VK_NUMPAD3;
 
-	if(key_str == "NUM4")
+	else if(key_str == "NUM4")
 		return VK_NUMPAD4;
 
-	if(key_str == "NUM5")
+	else if(key_str == "NUM5")
 		return VK_NUMPAD5;
 
-	if(key_str == "NUM6")
+	else if(key_str == "NUM6")
 		return VK_NUMPAD6;
 
-	if(key_str == "NUM7")
+	else if(key_str == "NUM7")
 		return VK_NUMPAD7;
 
-	if(key_str == "NUM8")
+	else if(key_str == "NUM8")
 		return VK_NUMPAD8;
 
-	if(key_str == "NUM9")
+	else if(key_str == "NUM9")
 		return VK_NUMPAD9;
 
-	if(key_str == "NUM*")
+	else if(key_str == "NUM*")
 		return VK_MULTIPLY;
 
-	if(key_str == "NUM+")
+	else if(key_str == "NUM+")
 		return VK_ADD;    
 
-	//if(key_str == ";")
+	//else if(key_str == ";")
 	//	return VK_SEPARATOR;
 
-	if(key_str == "NUM-")
+	else if(key_str == "NUM-")
 		return VK_SUBTRACT; 
 
-	if(key_str == "NUM.")
+	else if(key_str == "NUM.")
 		return VK_DECIMAL; 
 
-	if(key_str == "NUM/")
+	else if(key_str == "NUM/")
 		return VK_DIVIDE;
 
-	if(key_str == "F1")
+	else if(key_str == "F1")
 		return VK_F1;
 
-	if(key_str == "F2")
+	else if(key_str == "F2")
 		return VK_F2;  
 
-	if(key_str == "F3")
+	else if(key_str == "F3")
 		return VK_F3;  
 
-	if(key_str == "F4")
+	else if(key_str == "F4")
 		return VK_F4; 
 
-	if(key_str == "F5")
+	else if(key_str == "F5")
 		return VK_F5;
 
-	if(key_str == "F6")
+	else if(key_str == "F6")
 		return VK_F6;  
 
-	if(key_str == "F7")
+	else if(key_str == "F7")
 		return VK_F7;  
 
-	if(key_str == "F8")
+	else if(key_str == "F8")
 		return VK_F8;  
 
-	if(key_str == "F9")
+	else if(key_str == "F9")
 		return VK_F9;  
 
-	if(key_str == "F10")
+	else if(key_str == "F10")
 		return VK_F10;   
 
-	if(key_str == "F11")
+	else if(key_str == "F11")
 		return VK_F11; 
 
-	if(key_str == "F12")
+	else if(key_str == "F12")
 		return VK_F12;  
 
-	if(key_str == "BACK")
+	else if(key_str == "BACK")
 		return VK_BACK;  
 
-	if(key_str == "TAB")
+	else if(key_str == "TAB")
 		return VK_TAB; 
 
-	if(key_str == "LBUTTON")
+	else if(key_str == "LBUTTON")
 		return VK_LBUTTON; 
 
-	if(key_str == "RBUTTON")
+	else if(key_str == "RBUTTON")
 		return VK_RBUTTON;  
 
-	if(key_str == "MBUTTON")
+	else if(key_str == "MBUTTON")
 		return VK_MBUTTON;  
 
-	if(key_str == ">" || key_str == ".")
+	else if(key_str == ">" || key_str == ".")
 		return VK_OEM_PERIOD;  
-	if(key_str == "<" || key_str == ",")
+	else if(key_str == "<" || key_str == ",")
 		return VK_OEM_COMMA;  
-	if(key_str == ";" || key_str == ":")
+	else if(key_str == ";" || key_str == ":")
 		return VK_OEM_1;  
-	if(key_str == "'" || key_str == "\"")
+	else if(key_str == "'" || key_str == "\"")
 		return VK_OEM_7;  
-	if(key_str == "/" || key_str == "?")
+	else if(key_str == "/" || key_str == "?")
 		return VK_OEM_2;  
-	if(key_str == "\\" || key_str == "|")
+	else if(key_str == "\\" || key_str == "|")
 		return VK_OEM_5;  
-	if(key_str == "[" || key_str == "{")
+	else if(key_str == "[" || key_str == "{")
 		return VK_OEM_4;  
-	if(key_str == "]" || key_str == "}")
+	else if(key_str == "]" || key_str == "}")
 		return VK_OEM_6; 
-	if(key_str == "=" || key_str == "+")
+	else if(key_str == "=" || key_str == "+")
 		return VK_OEM_PLUS; 
-	if(key_str == "-" || key_str == "_")
+	else if(key_str == "-" || key_str == "_")
 		return VK_OEM_MINUS; 
-	if(key_str == "`" || key_str == "~")
+	else if(key_str == "`" || key_str == "~")
 		return VK_OEM_3; 	
 	
 
-	if(key_str[0]>=27 && key_str[0]<=127)
+	else if(key_str[0]>=27 && key_str[0]<=127)
 		return (char)key_str[0];
 
 	return 0;

@@ -10,7 +10,7 @@
 			>
 			<DebugSettings
 				Command="$(TargetPath)"
-				WorkingDirectory="D:\code\OfficeVol2\bin"
+				WorkingDirectory="..\bin"
 				CommandArguments=""
 				Attach="false"
 				DebuggerType="3"

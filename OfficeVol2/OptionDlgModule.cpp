@@ -27,6 +27,7 @@ void OptionDlgModule::OnFinalMessage(HWND /*hWnd*/)
 void OptionDlgModule::Init() 
 {
     CKeyEditUI* tmpEdit = static_cast<CKeyEditUI*>(m_pm.FindControl(_T("OFF_VOLUP")));
+	assert(tmpEdit);
 	std::string configStr;
     OfficeVolModule::GetInstance()->GetConfigStr("OFF_VOLUP", configStr);
 	tmpEdit->SetKey(configStr.c_str());
@@ -34,53 +35,72 @@ void OptionDlgModule::Init()
 	mKeyEditVec.push_back(tmpEdit);
 
     tmpEdit = static_cast<CKeyEditUI*>(m_pm.FindControl(_T("OFF_VOLDOWN")));
-    OfficeVolModule::GetInstance()->GetConfigStr("OFF_VOLDOWN", configStr);
+	assert(tmpEdit);
+	OfficeVolModule::GetInstance()->GetConfigStr("OFF_VOLDOWN", configStr);
 	tmpEdit->SetKey(configStr.c_str());
 	tmpEdit->SetText(configStr.c_str());
 	mKeyEditVec.push_back(tmpEdit);	
 
     tmpEdit = static_cast<CKeyEditUI*>(m_pm.FindControl(_T("OFF_VOLON")));
-    OfficeVolModule::GetInstance()->GetConfigStr("OFF_VOLON", configStr);
+	assert(tmpEdit);
+	OfficeVolModule::GetInstance()->GetConfigStr("OFF_VOLON", configStr);
 	tmpEdit->SetKey(configStr.c_str());
 	tmpEdit->SetText(configStr.c_str());
 	mKeyEditVec.push_back(tmpEdit);	
 
     tmpEdit = static_cast<CKeyEditUI*>(m_pm.FindControl(_T("OFF_VOLOFF")));
-    OfficeVolModule::GetInstance()->GetConfigStr("OFF_VOLOFF", configStr);
+	assert(tmpEdit);
+	OfficeVolModule::GetInstance()->GetConfigStr("OFF_VOLOFF", configStr);
 	tmpEdit->SetKey(configStr.c_str());
 	tmpEdit->SetText(configStr.c_str());
 	mKeyEditVec.push_back(tmpEdit);	
 
     tmpEdit = static_cast<CKeyEditUI*>(m_pm.FindControl(_T("OFF_VOLSELECT_MASTER")));
-    OfficeVolModule::GetInstance()->GetConfigStr("OFF_VOLSELECT_MASTER", configStr);
+	assert(tmpEdit);
+	OfficeVolModule::GetInstance()->GetConfigStr("OFF_VOLSELECT_MASTER", configStr);
 	tmpEdit->SetKey(configStr.c_str());
 	tmpEdit->SetText(configStr.c_str());
 	mKeyEditVec.push_back(tmpEdit);	
 
     tmpEdit = static_cast<CKeyEditUI*>(m_pm.FindControl(_T("OFF_VOLSELECT_WAVE")));
-    OfficeVolModule::GetInstance()->GetConfigStr("OFF_VOLSELECT_WAVE", configStr);
+	assert(tmpEdit);
+	OfficeVolModule::GetInstance()->GetConfigStr("OFF_VOLSELECT_WAVE", configStr);
 	tmpEdit->SetKey(configStr.c_str());
 	tmpEdit->SetText(configStr.c_str());
 	mKeyEditVec.push_back(tmpEdit);	
 
     tmpEdit = static_cast<CKeyEditUI*>(m_pm.FindControl(_T("OFF_VOLSELECT_MIC")));
+	assert(tmpEdit);
     OfficeVolModule::GetInstance()->GetConfigStr("OFF_VOLSELECT_MIC", configStr);
 	tmpEdit->SetKey(configStr.c_str());
 	tmpEdit->SetText(configStr.c_str());
 	mKeyEditVec.push_back(tmpEdit);	
 
     tmpEdit = static_cast<CKeyEditUI*>(m_pm.FindControl(_T("OFF_OPTION")));
+	assert(tmpEdit);
     OfficeVolModule::GetInstance()->GetConfigStr("OFF_OPTION", configStr);
 	tmpEdit->SetKey(configStr.c_str());
 	tmpEdit->SetText(configStr.c_str());
 	mKeyEditVec.push_back(tmpEdit);	
 
     tmpEdit = static_cast<CKeyEditUI*>(m_pm.FindControl(_T("OFF_QUIT")));
+	assert(tmpEdit);
     OfficeVolModule::GetInstance()->GetConfigStr("OFF_QUIT", configStr);
 	tmpEdit->SetKey(configStr.c_str());
 	tmpEdit->SetText(configStr.c_str());
 	mKeyEditVec.push_back(tmpEdit);		
 
+    mWinStartOpt = static_cast<COptionUI*>(m_pm.FindControl(_T("OFF_WINSTART")));
+	assert(mWinStartOpt);
+    OfficeVolModule::GetInstance()->GetConfigStr("OFF_WINSTART", configStr);
+	if(configStr == "ON")
+	{
+		mWinStartOpt->Selected(true);
+	}
+	else
+	{
+		mWinStartOpt->Selected(false);
+	}
 }
 
 
@@ -106,7 +126,7 @@ void OptionDlgModule::Notify(TNotifyUI& msg)
         {
             UpdateConfig();
             return; 
-        }		
+        }
     }
 	else if (_tcsicmp(msg.sType, _T("selectchanged")) == 0)
 	{
@@ -382,6 +402,44 @@ LRESULT OptionDlgModule::UpdateConfig()
 			}
 		}
 	}
+
+	ret = OfficeVolModule::GetInstance()->GetConfigStr((LPCTSTR)mWinStartOpt->GetName(), old_config);
+	if(ret)
+	{
+		char str[1024] = {0};
+		_snprintf(str, 1024, "»ñÈ¡ÅäÖÃ´íÎó %s", (LPCTSTR)mWinStartOpt->GetName());
+		Off_Msg(str);
+		ReadConfig();
+		return OFF_ERROR;
+	}
+
+	if(old_config == "OFF" && mWinStartOpt->IsSelected())
+	{
+	    ret = OfficeVolModule::GetInstance()->SetConfigStr(OFF_WIN_START, 
+			                                               (LPCTSTR)mWinStartOpt->GetName(), 
+			                                               "ON");
+		if(ret)
+		{
+			char str[1024] = {0};
+			_snprintf(str, 1024, "ÅäÖÃ´íÎó %s:%s", (LPCTSTR)mWinStartOpt->GetName(),
+				                                    "ON");
+			Off_Msg(str);
+		}
+	}
+	else if(old_config == "ON" && !mWinStartOpt->IsSelected())
+	{
+	    ret = OfficeVolModule::GetInstance()->SetConfigStr(OFF_WIN_START, 
+			                                               (LPCTSTR)mWinStartOpt->GetName(), 
+			                                               "OFF");
+		if(ret)
+		{
+			char str[1024] = {0};
+			_snprintf(str, 1024, "ÅäÖÃ´íÎó %s:%s", (LPCTSTR)mWinStartOpt->GetName(),
+				                                    "OFF");
+			Off_Msg(str);
+		}
+	}
+	
 	ReadConfig();
 	
 	return 0;

@@ -16,6 +16,7 @@
 #include <exdisp.h>
 #include <comdef.h>
 #include <windows.h>
+#include <shlobj.h>
 #include "resource.h"
 
 // C 运行时头文件
