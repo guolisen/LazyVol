@@ -15,9 +15,7 @@
             <Option name="tab_about" text="ABOUT" float="true" pos="196,7,0,0" width="179" height="44" textcolor="#009E9E9E" disabledtextcolor="#FFA7A6AA" font="0" align="center" normalimage="TabBack.png" group="tablarge" selectedimage="ATabBack.png" />
         </HorizontalLayout>
         <TabLayout name="tab_main" width="509" height="240">
-		            <HorizontalLayout width="509" height="240">
-                <Label float="true" pos="26,8,0,0" width="464" height="226" bkimage="file=&apos;TabAbout.png&apos; dest=&apos;0,0,460,223&apos;" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" />
-            </HorizontalLayout>
+
             <HorizontalLayout width="506" height="240">
                 <VerticalLayout width="99" height="238">
                     <Option name="gtab_key" float="true" pos="33,12,0,0" width="66" height="68" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" group="ll" selected="true" foreimage="file=&apos;calendar.png&apos; dest=&apos;15,15,51,49&apos;" selectedimage="TabList.png" />
@@ -25,11 +23,7 @@
                 </VerticalLayout>
                 <HorizontalLayout width="405" height="238">
                     <TabLayout name="tab_main_general" width="509" height="240" relativepos="0,0,0,0">
-                        <VerticalLayout width="403" height="233">
-                            <Control float="true" pos="9,20,0,0" width="370" height="198" bkimage="file=&apos;BackRect.png&apos; dest=&apos;0,0,365,197&apos;" />
-                            <Option name="OFF_WINSTART" float="true" pos="43,45,0,0" width="16" height="16" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" normalimage="file=&apos;checkbutton1.png&apos; source=&apos;0,0,16,16&apos;" hotimage="file=&apos;checkbutton1.png&apos; source=&apos;16,0,32,16&apos;" selectedimage="file=&apos;checkbutton1.png&apos; source=&apos;32,0,48,16&apos;" />
-                            <Label text="Start with Windows" float="true" pos="74,41,0,0" width="151" height="22" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" font="3" />
-                        </VerticalLayout>
+
                         <VerticalLayout width="407" height="233">
                             <KEdit bkcolor="#FFFFFFFF" disabledtextcolor="#FFA7A6AA" float="true" focusedimage="file=&apos;edit-hover.png&apos; corner=&apos;0,0,5,5&apos;" font="1" height="32" hotimage="file=&apos;edit-hover.png&apos; corner=&apos;0,0,5,5&apos;" name="OFF_VOLON" normalimage="file=&apos;edit-normal.png&apos; corner=&apos;0,0,5,5&apos;" pos="95,23,0,0" readonly="true" text="Ctrl+Alt+O" textcolor="#FF000000" textpadding="4,3,4,3" width="97" />
                             <Label text="Volnme On:" float="true" pos="18,27,0,0" width="69" height="21" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" font="1" align="right" />
@@ -50,10 +44,17 @@
                             <Label text="Quit:" float="true" pos="27,187,0,0" width="60" height="20" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" font="1" align="right" />
                             <KEdit bkcolor="#FFFFFFFF" disabledtextcolor="#FFA7A6AA" float="true" focusedimage="file=&apos;edit-hover.png&apos; corner=&apos;0,0,5,5&apos;" font="1" height="32" hotimage="file=&apos;edit-hover.png&apos; corner=&apos;0,0,5,5&apos;" name="OFF_QUIT" normalimage="file=&apos;edit-normal.png&apos; corner=&apos;0,0,5,5&apos;" pos="95,182,0,0" readonly="true" text="Ctrl+Alt+O" textcolor="#FF000000" textpadding="4,3,4,3" width="97" />
                         </VerticalLayout>
+						<VerticalLayout width="403" height="233">
+                            <Control float="true" pos="9,20,0,0" width="370" height="198" bkimage="file=&apos;BackRect.png&apos; dest=&apos;0,0,365,197&apos;" />
+                            <Option name="OFF_WINSTART" float="true" pos="43,45,0,0" width="16" height="16" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" normalimage="file=&apos;checkbutton1.png&apos; source=&apos;0,0,16,16&apos;" hotimage="file=&apos;checkbutton1.png&apos; source=&apos;16,0,32,16&apos;" selectedimage="file=&apos;checkbutton1.png&apos; source=&apos;32,0,48,16&apos;" />
+                            <Label text="Start with Windows" float="true" pos="74,41,0,0" width="151" height="22" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" font="3" />
+                        </VerticalLayout>
                     </TabLayout>
                 </HorizontalLayout>
             </HorizontalLayout>
-
+		            <HorizontalLayout width="509" height="240">
+                <Label float="true" pos="26,8,0,0" width="464" height="226" bkimage="file=&apos;TabAbout.png&apos; dest=&apos;0,0,460,223&apos;" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" />
+            </HorizontalLayout>
         </TabLayout>
         <HorizontalLayout width="508" height="34">
             <Button name="okBtn" text="OK" float="true" pos="316,4,0,0" width="85" height="26" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" font="1" align="center" normalimage="file=&apos;Button.png&apos; source=&apos;0,30,96,60&apos;" hotimage="file=&apos;Button.png&apos; source=&apos;0,0,96,30&apos;" pushedimage="file=&apos;Button.png&apos; source=&apos;0,60,96,89&apos;" />
