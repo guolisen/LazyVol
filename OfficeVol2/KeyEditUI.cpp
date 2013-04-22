@@ -393,7 +393,7 @@ void CKeyEditUI::SetEnabled(bool bEnable)
 
 void CKeyEditUI::SetKey(LPCTSTR pstrText)
 {
-	mKeyStr = pstrText;
+	mKeyStr = static_cast<std::string>(pstrText);
 }
 std::string& CKeyEditUI::GetKey()
 {
