@@ -53,7 +53,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPSTR lpC
 
 	CPaintManagerUI::SetInstance(hInstance);
 
-	CPaintManagerUI::SetResourcePath(CPaintManagerUI::GetInstancePath() + "..\\res\\OfficeVol");
+	CPaintManagerUI::SetResourcePath(CPaintManagerUI::GetInstancePath() + "res\\OfficeVol");
 
 	HRESULT Hr = ::CoInitialize(NULL);
 	if( FAILED(Hr) ) 
