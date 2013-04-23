@@ -60,10 +60,14 @@ void VolMainForm::Init()
 	mProgress->SetMaxValue(OfficeVolModule::GetInstance()->GetMaxVol());
 	mProgress->SetMinValue(OfficeVolModule::GetInstance()->GetMinVol());
 	mProgress->SetValue(OfficeVolModule::GetInstance()->GetCurrentVolume());
-	//SetVolLogo(OfficeVolModule::GetInstance()->GetCurrentVolume());
-	//mIsShow = TRUE;
-	//SetTimer(m_hWnd, 0, 1000, NULL);
-	ShowPad();
+
+//	ShowPad();
+	OptionDlgModule* pOption = new OptionDlgModule(m_hWnd);
+	assert(pOption);
+	pOption->Create(NULL, _T("OfficeVolOption"), WS_VISIBLE | WS_POPUP, NULL, 0, 0, 0, 0);
+	pOption->CenterWindow();
+	::ShowWindow(*pOption, SW_SHOW);
+	mIsOptionShow = true;
 }
 
 void VolMainForm::OnPrepare(TNotifyUI& msg) 
@@ -596,9 +600,8 @@ int VolMainForm::UiUpdate(const std::string& action)
 		OptionDlgModule* pOption = new OptionDlgModule(m_hWnd);
 		if( pOption == NULL ) 
 			return 0;
-		pOption->Create(NULL, _T("OfficeVol"), WS_VISIBLE | WS_POPUP, NULL, 0, 0, 0, 0);
+		pOption->Create(NULL, _T("OfficeVolOption"), WS_VISIBLE | WS_POPUP, NULL, 0, 0, 0, 0);
 		pOption->CenterWindow();
-		//pOption->SetIcon(IDI_ICON1);
 		::ShowWindow(*pOption, SW_SHOW);
 		mIsOptionShow = true;
 	}	
