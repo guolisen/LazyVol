@@ -45,6 +45,7 @@ public:
 	LRESULT SetVolLogo(DWORD vol_level);
 	LRESULT ShowPad();
 	LRESULT HidePad();
+	LRESULT ShowOption();
 
 	LRESULT RegisterHotkey(const std::string& hotkey);
 	void    UnRegisterHotkey(const std::string& hotkey);	

@@ -67,6 +67,11 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPSTR lpC
 	pFrame->SetIcon(IDI_ICON1);
 	//::ShowWindow(*pFrame, SW_SHOW);
 
+	if(*lpCmdLine)
+		pFrame->ShowPad();
+	else	
+		pFrame->ShowOption();
+	
 	CPaintManagerUI::MessageLoop();
 
 	::CoUninitialize();

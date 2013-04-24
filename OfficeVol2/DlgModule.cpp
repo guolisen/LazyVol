@@ -62,12 +62,7 @@ void VolMainForm::Init()
 	mProgress->SetValue(OfficeVolModule::GetInstance()->GetCurrentVolume());
 
 //	ShowPad();
-	OptionDlgModule* pOption = new OptionDlgModule(m_hWnd);
-	assert(pOption);
-	pOption->Create(NULL, _T("OfficeVolOption"), WS_VISIBLE | WS_POPUP, NULL, 0, 0, 0, 0);
-	pOption->CenterWindow();
-	::ShowWindow(*pOption, SW_SHOW);
-	mIsOptionShow = true;
+
 }
 
 void VolMainForm::OnPrepare(TNotifyUI& msg) 
@@ -525,6 +520,17 @@ LRESULT VolMainForm::HidePad()
 	mIsShow = FALSE;
 	
 	return 0;
+}
+LRESULT VolMainForm::ShowOption()
+{
+	OptionDlgModule* pOption = new OptionDlgModule(m_hWnd);
+	assert(pOption);
+	pOption->Create(NULL, _T("OfficeVolOption"), WS_VISIBLE | WS_POPUP, NULL, 0, 0, 0, 0);
+	pOption->CenterWindow();
+	::ShowWindow(*pOption, SW_SHOW);
+	mIsOptionShow = true;
+
+	return OFF_OK;
 }
 
 LRESULT VolMainForm::RegisterHotkey(const std::string& hotkey)
