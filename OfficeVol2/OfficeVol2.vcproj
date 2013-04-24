@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="OfficeVol2"
+	Name="LazyVol"
 	ProjectGUID="{027943B7-33DC-4D93-B03F-1737EB6C5E52}"
 	RootNamespace="OfficeVol2"
 	Keyword="Win32Proj"
