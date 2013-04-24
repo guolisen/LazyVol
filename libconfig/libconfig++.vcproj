@@ -90,7 +90,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)..\bin\$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ProjectName).$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="0"
@@ -113,8 +113,9 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="lib"
-				PreprocessorDefinitions="LIBCONFIGXX_EXPORTS;LIBCONFIG_STATIC;YY_NO_UNISTD_H;YY_USE_CONST;_CRT_SECURE_NO_DEPRECATE;_STDLIB_H"
+				Optimization="0"
+				AdditionalIncludeDirectories="libconfig"
+				PreprocessorDefinitions="LIBCONFIGXX_EXPORTS;LIBCONFIG_STATIC;YY_NO_UNISTD_H;YY_USE_CONST;_CRT_SECURE_NO_DEPRECATE;_STDLIB_H;_WINDOWS;WIN32"
 				RuntimeLibrary="2"
 			/>
 			<Tool
@@ -133,6 +134,7 @@
 				EnableCOMDATFolding="2"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
+				ImportLibrary="..\lib\$(TargetName).lib"
 				TargetMachine="1"
 			/>
 			<Tool

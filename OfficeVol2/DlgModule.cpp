@@ -3,19 +3,7 @@
 #include "OfficeVolModule.h"
 #include <UIlib.h>
 #include "resource.h"
-#ifdef _DEBUG
-#   ifdef _UNICODE
-#       pragma comment(lib, "D:\\code\\duilib\\lib\\DuiLib_ud.lib")
-#   else
-#       pragma comment(lib, "D:\\code\\duilib\\lib\\DuiLib_d.lib")
-#   endif
-#else
-#   ifdef _UNICODE
-#       pragma comment(lib, "D:\\code\\duilib\\lib\\DuiLib_u.lib")
-#   else
-#       pragma comment(lib, "D:\\code\\duilib\\lib\\DuiLib.lib")
-#   endif
-#endif
+
 using namespace DuiLib;
 
 

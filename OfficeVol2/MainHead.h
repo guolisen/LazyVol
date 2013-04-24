@@ -6,7 +6,8 @@
 #include <list>
 #include <vector>
 #include <algorithm>
- 
+#include <cassert>
+
 #include <objbase.h>
 #include <zmouse.h>
 #include <exdisp.h>

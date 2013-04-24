@@ -107,7 +107,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				PreprocessorDefinitions="LIBCONFIG_EXPORTS;YY_NO_UNISTD_H;YY_USE_CONST;_CRT_SECURE_NO_DEPRECATE;_STDLIB_H"
+				Optimization="0"
+				PreprocessorDefinitions="LIBCONFIG_EXPORTS;YY_NO_UNISTD_H;YY_USE_CONST;_CRT_SECURE_NO_DEPRECATE;_STDLIB_H;WIN32;_WINDOWS"
 				RuntimeLibrary="2"
 				CompileAs="1"
 			/>
@@ -122,8 +123,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				OutputFile="$(OutDir)..\..\bin\$(ProjectName).dll"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
+				ImportLibrary="..\lib\$(TargetName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
