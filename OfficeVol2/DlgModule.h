@@ -7,6 +7,7 @@
 using namespace DuiLib;
 
 
+#define MSG_SHOW_PAD   WM_USER + 123     // ¼üÅÌÏûÏ¢
 
 typedef std::map<ATOM, std::string> HOTKEY_MAP;
 
@@ -38,6 +39,7 @@ public:
 	LRESULT OnOptDismiss(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	LRESULT OnHotKey(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	LRESULT OnTimer(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+	LRESULT OnShowPad(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 
     LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam);
 	

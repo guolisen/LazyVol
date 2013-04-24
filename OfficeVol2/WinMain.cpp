@@ -21,17 +21,19 @@ BOOL IfAppExist()
 		HWND hProgramWnd = ::FindWindow(NULL, _T("OfficeVol"));
 		if (hProgramWnd)
 		{
-			WINDOWPLACEMENT* pWndpl = NULL;
-			WINDOWPLACEMENT   wpm; 
-			pWndpl =&wpm;
-			GetWindowPlacement(hProgramWnd,&wpm);
-			if (pWndpl)
-			{
+			::PostMessage(hProgramWnd, MSG_SHOW_PAD, 0, 0);	
+
+			//WINDOWPLACEMENT* pWndpl = NULL;
+			//WINDOWPLACEMENT   wpm; 
+			//pWndpl =&wpm;
+			//GetWindowPlacement(hProgramWnd,&wpm);
+			//if (pWndpl)
+			//{
 				//将运行的程序窗口还原成正常状态
-				pWndpl->showCmd = SW_SHOWNORMAL;
-				::SetWindowPlacement(hProgramWnd,pWndpl);
-				SetWindowPos(hProgramWnd,HWND_NOTOPMOST,0,0,0,0,SWP_NOSIZE|SWP_NOMOVE);
-			}
+			//	pWndpl->showCmd = SW_SHOWNORMAL;
+			//	::SetWindowPlacement(hProgramWnd,pWndpl);
+			//	SetWindowPos(hProgramWnd,HWND_NOTOPMOST,0,0,0,0,SWP_NOSIZE|SWP_NOMOVE);
+			//}
 		}
 		//关闭进程互斥体
 		CloseHandle(hMutex);

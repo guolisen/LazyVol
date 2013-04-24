@@ -309,6 +309,7 @@ LRESULT VolMainForm::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
         case WM_TIMER:         lRes = OnTimer(uMsg, wParam, lParam, bHandled); break;
 		case WM_HOTKEY:		   lRes = OnHotKey(uMsg, wParam, lParam, bHandled); break;
 		case MSG_DISMISS_OPTION:	lRes = OnOptDismiss(uMsg, wParam, lParam, bHandled); break;
+		case MSG_SHOW_PAD:	   lRes = OnShowPad(uMsg, wParam, lParam, bHandled); break;
 
 		default:
             bHandled = FALSE;
@@ -335,122 +336,14 @@ LRESULT VolMainForm::OnHotKey(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHa
 	return OFF_OK;
 }
 
-#if 0
-LRESULT VolMainForm::OnKeyHook(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
-{
-	//KBDLLHOOKSTRUCT *Key_Info = (KBDLLHOOKSTRUCT*)v_lParam;
-
-   if (wParam==0xbe && GetAsyncKeyState(
-        VK_CONTROL)<0 && GetAsyncKeyState(
-        VK_MENU)<0) {
-        if (lParam & 0x80000000) {
-            //组合键弹起
-			
-        }
-        else {
-            //组合键被按下
-           	OfficeVolModule::GetInstance()->VolUp();
-			mProgress->SetValue(OfficeVolModule::GetInstance()->GetCurrentVolume());
-			ShowPad();
-
-        }
-    }
-    else if (wParam==0xbc && GetAsyncKeyState(
-        VK_CONTROL)<0 && GetAsyncKeyState(
-        VK_MENU)<0) 
-    {
-        if (lParam & 0x80000000) {
-            //组合键弹起
-			
-        }
-        else {
-            //组合键被按下
-           	OfficeVolModule::GetInstance()->VolDown();
-			mProgress->SetValue(OfficeVolModule::GetInstance()->GetCurrentVolume());	
-			ShowPad();
-        }
-    }
-    else if (wParam=='1' && GetAsyncKeyState(
-	        VK_CONTROL)<0 && GetAsyncKeyState(
-	        VK_MENU)<0) 
-	{
-        if (lParam & 0x80000000) {
-            //组合键弹起
-			
-        }
-        else {
-			OfficeVolModule::GetInstance()->ChangeVolType(MASTER_VOL);
-			mProgress->SetValue(OfficeVolModule::GetInstance()->GetCurrentVolume());	
-			ShowPad();
-		}
-
-	}
-    else if (wParam=='2' && GetAsyncKeyState(
-		    VK_CONTROL)<0 && GetAsyncKeyState(
-		    VK_MENU)<0) 
-	{
-        if (lParam & 0x80000000) {
-            //组合键弹起
-			
-        }
-        else {
-			OfficeVolModule::GetInstance()->ChangeVolType(WAVE_VOL);
-			mProgress->SetValue(OfficeVolModule::GetInstance()->GetCurrentVolume());	
-			ShowPad();
-		}
-	}
-    else if (wParam=='Q' && GetAsyncKeyState(
-		    VK_CONTROL)<0 && GetAsyncKeyState(
-		    VK_MENU)<0) 
-	{
-        if (lParam & 0x80000000) {
-            //组合键弹起
-			
-        }
-        else {
-			::MessageBox(m_hWnd, "再见！", "Create By Guolisen", MB_OK);
-			SetKeyHook(FALSE, 0, m_hWnd);
-			OfficeVolModule::GetInstance()->UnInit();
-
-			::PostMessage(m_hWnd, WM_DESTROY, 0, 0);
-		}
-	}
-
-    else if (wParam=='O' && GetAsyncKeyState(
-	        VK_CONTROL)<0 && GetAsyncKeyState(
-	        VK_MENU)<0) 
-	{
-        if (lParam & 0x80000000) {
-            //组合键弹起
-			
-        }
-        else {
-			OfficeVolModule::GetInstance()->Enable();
-			ShowPad();
-		}
-
-	}
-    else if (wParam=='F' && GetAsyncKeyState(
-	        VK_CONTROL)<0 && GetAsyncKeyState(
-	        VK_MENU)<0) 
-	{
-        if (lParam & 0x80000000) {
-            //组合键弹起
-			
-        }
-        else {
-			OfficeVolModule::GetInstance()->Disable();
-			ShowPad();
-		}
-
-	}
-	
-    return 0;
-}
-#endif
 LRESULT VolMainForm::OnTimer(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 {
 	HidePad();
+	return 0;
+}
+LRESULT VolMainForm::OnShowPad(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+{
+	ShowPad();
 	return 0;
 }
 
